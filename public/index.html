@@ -2,165 +2,1169 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Simulasi KPR</title>
-    <meta name="description" content="Simulasi cicilan KPR beserta bunga dan angsuran per bulan">
-    <meta name="keywords" content="simulasi kpr, kredit pemilikan rumah, cicilan kpr, bunga kpr, angsuran kpr">
-    <meta name="author" content="WPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Kalkulator Cicilan KPR Online - Hitung Angsuran Rumah dengan Bunga Anuitas</title>
+    <meta name="description" content="Kalkulator cicilan KPR online gratis dengan metode bunga anuitas. Hitung angsuran rumah impian Anda dengan mudah, akurat, dan cepat. Support multiple bunga dan periode fleksibel.">
+    <meta name="keywords" content="kalkulator KPR, cicilan KPR, angsuran rumah, bunga anuitas, hitung KPR, KPR online, simulasi KPR, kredit rumah, kalkulator kredit rumah, angsuran per bulan">
+    <meta name="author" content="KPR Calculator Team">
     <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <meta property="og:title" content="Simulasi KPR">
-    <meta property="og:description" content="Simulasi cicilan KPR beserta bunga dan angsuran per bulan">
-    <meta property="og:url" content="https://kpr-simulator.web.app/">
-    <meta property="og:site_name" content="WPU">
-    <meta property="og:locale" content="id_ID">
+    <meta name="language" content="Indonesian">
+    <meta name="geo.country" content="ID">
+    <meta name="geo.region" content="ID">
+    <meta name="geo.placename" content="Indonesia">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Kalkulator Cicilan KPR Online - Hitung Angsuran Rumah dengan Bunga Anuitas">
+    <meta property="og:description" content="Kalkulator cicilan KPR online gratis dengan metode bunga anuitas. Hitung angsuran rumah impian Anda dengan mudah, akurat, dan cepat. Support multiple bunga dan periode fleksibel.">
     <meta property="og:type" content="website">
-    <meta property="og:locale:alternate" content="en_US">
-    <meta property="og:locale:alternate" content="id_ID">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="container py-4">
-    <h2 class="mb-4 text-center">Simulasi KPR</h2>
+    <meta property="og:url" content="https://kpr.rikihandoyo.com">
+    <meta property="og:image" content="https://kpr.rikihandoyo.com/images/kpr-calculator-og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="KPR Calculator">
+    <meta property="og:locale" content="id_ID">
     
-    <div class="mb-3">
-        <label class="form-label">Plafond Pinjaman (Rp)</label>
-        <input type="number" id="plafond" class="form-control" placeholder="Masukkan plafond pinjaman">
-    </div>
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kalkulator Cicilan KPR Online - Hitung Angsuran Rumah dengan Bunga Anuitas">
+    <meta name="twitter:description" content="Kalkulator cicilan KPR online gratis dengan metode bunga anuitas. Hitung angsuran rumah impian Anda dengan mudah, akurat, dan cepat.">
+    <meta name="twitter:image" content="https://kpr.rikihandoyo.com/images/kpr-calculator-twitter.jpg">
+    <meta name="twitter:site" content="@kprcalculator">
+    <meta name="twitter:creator" content="@kprcalculator">
     
-    <div class="mb-3 d-flex gap-2">
-        <div class="w-50">
-            <label class="form-label">Bulan Mulai Cicilan</label>
-            <input type="number" id="startBulan" class="form-control" placeholder="Masukkan bulan mulai (1-12)">
-        </div>
-        <div class="w-50">
-            <label class="form-label">Tahun Mulai Cicilan</label>
-            <input type="number" id="startTahun" class="form-control" placeholder="Masukkan tahun mulai">
-        </div>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Jangka Waktu (bulan)</label>
-        <input type="number" id="jangkaWaktu" class="form-control" placeholder="Masukkan jangka waktu">
-    </div>
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://kpr.rikihandoyo.com">
     
-    <div class="mb-3">
-        <label class="form-label">Suku Bunga per Tahun</label>
-        <div id="bungaContainer">
-            <div class="input-group mb-2">
-                <input type="number" class="form-control bungaAwal" placeholder="Dari bulan">
-                <input type="number" class="form-control bungaAkhir" placeholder="Sampai bulan">
-                <input type="number" class="form-control bungaRate" placeholder="% per tahun" >
-                <button class="btn btn-danger" onclick="removeBunga(this)">Hapus</button>
-            </div>
-        </div>
-        <button class="btn btn-primary" onclick="addBunga()">Tambah Bunga</button>
-    </div>
-    
-    <button class="btn btn-success mb-3" onclick="hitungKPR()">Hitung</button>
-    <button class="btn btn-info mb-3" onclick="downloadCSV()">Download CSV</button>
-    
-    <table class="table table-bordered mt-3">
-        <thead>
-            <tr>
-                <th>Cicilan Ke</th>
-                <th>Bulan</th>
-                <th>Tahun</th>
-                <th>Sisa Pinjaman</th>
-                <th>Pokok</th>
-                <th>Bunga</th>
-                <th>Angsuran</th>
-                <th>Rate (%)</th>
-            </tr>
-        </thead>
-        <tbody id="hasilKPR"></tbody>
-        <tfoot>
-            <tr>
-                <th>Total</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th id="totalPokok"></th>
-                <th id="totalBunga"></th>
-                <th id="totalAngsuran"></th>
-                <th></th>
-            </tr>
-        </tfoot>
-    </table>
-    
-    <script>
-        function addBunga() {
-            let container = document.getElementById('bungaContainer');
-            let div = document.createElement('div');
-            div.classList.add('input-group', 'mb-2');
-            div.innerHTML = `<input type="number" class="form-control bungaAwal" placeholder="Dari bulan">
-                             <input type="number" class="form-control bungaAkhir" placeholder="Sampai bulan">
-                             <input type="number" class="form-control bungaRate" placeholder="% per tahun" >
-                             <button class="btn btn-danger" onclick="removeBunga(this)">Hapus</button>`;
-            container.appendChild(div);
-        }
-        
-        function removeBunga(button) {
-            button.parentElement.remove();
-        }
-        
-        function downloadCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,Ciciclan ke,Bulan,Tahun,Sisa Pinjaman,Pokok,Bunga,Angsuran,Rate (%)\n";
-            document.querySelectorAll('#hasilKPR tr').forEach(row => {
-                let rowData = Array.from(row.children).map((cell, index) => index > 0 && index < 8 ? cell.innerText.replace(/,/g, '') : cell.innerText).join(",");
-                csvContent += rowData + "\n";
-            });
-            let encodedUri = encodeURI(csvContent);
-            let link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "simulasi_kpr.csv");
-            document.body.appendChild(link);
-            link.click();
-        }
-            function hitungKPR() {
-            let plafond = parseInt(document.getElementById('plafond').value);
-            let jangkaWaktu = parseInt(document.getElementById('jangkaWaktu').value);
-            let bungaList = [];
-            document.querySelectorAll('#bungaContainer .input-group').forEach(el => {
-                let awal = parseInt(el.querySelector('.bungaAwal').value);
-                let akhir = parseInt(el.querySelector('.bungaAkhir').value);
-                let rate = parseFloat(el.querySelector('.bungaRate').value);
-                bungaList.push({ awal, akhir, rate });
-            });
-            
-            let sisaPinjaman = plafond;
-            let hasil = '';
-            let totalPokok = 0, totalBunga = 0, totalAngsuran = 0;
-            
-            let startBulan = parseInt(document.getElementById('startBulan').value);
-            let startTahun = parseInt(document.getElementById('startTahun').value);
-            let currentBulan = startBulan;
-            let currentTahun = startTahun;
-            
-            for (let bulan = 1; bulan <= jangkaWaktu; bulan++) {
-                let bungaObj = bungaList.find(b => bulan >= b.awal && bulan <= b.akhir) || { rate: 14 };
-                let bungaBulanIni = bungaObj.rate / 100 / 12;
-                let angsuran = Math.round(sisaPinjaman * (bungaBulanIni / (1 - Math.pow(1 + bungaBulanIni, -(jangkaWaktu - bulan + 1)))));
-                let bunga = Math.round(sisaPinjaman * bungaBulanIni);
-                let pokok = angsuran - bunga;
-                sisaPinjaman -= pokok;
-                if (currentBulan > 12) {
-                    currentBulan = 1;
-                    currentTahun++;
-                }
-                
-                totalPokok += pokok;
-                totalBunga += bunga;
-                totalAngsuran += angsuran;
-                
-                hasil += `<tr><td>${bulan}</td><td>${currentBulan}</td><td>${currentTahun}</td><td>${sisaPinjaman.toLocaleString()}</td><td>${pokok.toLocaleString()}</td><td>${bunga.toLocaleString()}</td><td>${angsuran.toLocaleString()}</td><td>${bungaObj.rate}</td></tr>`;
-                currentBulan++;
-            }
-            document.getElementById('hasilKPR').innerHTML = hasil;
-            document.getElementById('totalPokok').innerText = totalPokok.toLocaleString();
-            document.getElementById('totalBunga').innerText = totalBunga.toLocaleString();
-            document.getElementById('totalAngsuran').innerText = totalAngsuran.toLocaleString();
-        }
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Kalkulator Cicilan KPR",
+        "description": "Kalkulator cicilan KPR online dengan metode bunga anuitas untuk menghitung angsuran rumah",
+        "url": "https://kpr.rikihandoyo.com",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "IDR"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "KPR Calculator Team"
+        },
+        "datePublished": "2023-01-01",
+        "dateModified": "2023-12-01",
+        "inLanguage": "id-ID",
+        "isAccessibleForFree": true,
+        "isFamilyFriendly": true,
+        "keywords": "kalkulator KPR, cicilan KPR, angsuran rumah, bunga anuitas, hitung KPR"
+    }
     </script>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#4F46E5">
+    <meta name="msapplication-TileColor" content="#4F46E5">
+    <meta name="application-name" content="KPR Calculator">
+    <meta name="apple-mobile-web-app-title" content="KPR Calculator">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --primary-dark: #4338CA;
+            --secondary-color: #10B981;
+            --accent-color: #F59E0B;
+            --danger-color: #EF4444;
+            --light-color: #F9FAFB;
+            --dark-color: #1F2937;
+            --gray-color: #6B7280;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .calculator-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .calculator-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .calculator-header i {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+
+        .calculator-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-addon {
+            background-color: var(--light-color);
+            padding: 12px 15px;
+            border: 1px solid #D1D5DB;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interest-rates-container {
+            margin-bottom: 25px;
+        }
+
+        .interest-rate-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+        }
+
+        .interest-rate-item input {
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+        }
+
+        .interest-rate-item .period-input {
+            width: 120px;
+        }
+
+        .interest-rate-item .rate-input {
+            width: 100px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .btn-danger:hover {
+            background-color: #DC2626;
+        }
+
+        .btn-add {
+            background-color: var(--accent-color);
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-add:hover {
+            background-color: #D97706;
+        }
+
+        .btn-export {
+            background-color: var(--secondary-color);
+            color: white;
+            margin-left: 10px;
+        }
+
+        .btn-export:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .results-container {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+        }
+
+        .results-container.active {
+            display: block;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .result-header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .result-header i {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin-right: 15px;
+        }
+
+        .result-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .installment-periods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .installment-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .installment-card h4 {
+            font-size: 16px;
+            color: var(--gray-color);
+            margin-bottom: 10px;
+        }
+
+        .installment-card .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .result-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-card h4 {
+            font-size: 14px;
+            color: var(--gray-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-card .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .result-card .value.highlight {
+            color: var(--primary-color);
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .table-header h4 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .result-table th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+        }
+
+        .result-table td {
+            padding: 15px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .result-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .result-table tr:nth-child(even) {
+            background-color: var(--light-color);
+        }
+
+        .chart-container {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-container h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .chart-bars {
+            display: flex;
+            height: 300px;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            margin: 0 5px;
+            background: linear-gradient(to top, var(--primary-color), var(--primary-dark));
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+        }
+
+        .chart-bar .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .chart-bar:hover .tooltip {
+            opacity: 1;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 10px 0;
+            font-size: 12px;
+            color: var(--gray-color);
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-icons {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 10px;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 20px;
+            margin-right: 15px;
+        }
+
+        .notification.success i {
+            color: var(--secondary-color);
+        }
+
+        .notification.error i {
+            color: var(--danger-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .calculator-container {
+                padding: 20px;
+            }
+
+            .result-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .installment-periods {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-bars {
+                height: 200px;
+            }
+
+            .interest-rate-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .interest-rate-item input {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-home"></i>
+                    <span>KPR Calculator</span>
+                </div>
+                <nav>
+                    <a href="#beranda">Beranda</a>
+                    <a href="#tentang">Tentang</a>
+                    <a href="#kontak">Kontak</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="beranda">
+        <div class="container">
+            <h1>Kalkulator Cicilan KPR</h1>
+            <p>Hitung cicilan KPR dengan metode bunga anuitas. Rencanakan keuangan Anda dengan tepat untuk mewujudkan rumah impian.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <i class="fas fa-calculator"></i>
+                <h2>Hitung Cicilan KPR Anda</h2>
+            </div>
+
+            <form id="kpr-form">
+                <div class="form-group">
+                    <label for="loan-amount">Total Pinjaman</label>
+                    <div class="input-group">
+                        <div class="input-addon">Rp</div>
+                        <input type="text" id="loan-amount" placeholder="500.000.000" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loan-period">Lama Pinjaman (Bulan)</label>
+                    <input type="number" id="loan-period" placeholder="240" min="12" max="360" required>
+                </div>
+
+                <div class="interest-rates-container">
+                    <label>Suku Bunga (Tetap/Mengambang)</label>
+                    <div id="interest-rates">
+                        <div class="interest-rate-item">
+                            <input type="number" class="period-input" placeholder="Bulan ke" min="1" value="1">
+                            <span>sampai</span>
+                            <input type="number" class="period-input" placeholder="Bulan ke" min="1" value="60">
+                            <span>:</span>
+                            <input type="number" class="rate-input" placeholder="Bunga (%)" min="0" max="100" step="0.01" value="6">
+                            <span>%</span>
+                            <button type="button" class="btn btn-danger" onclick="removeInterestRate(this)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-add" onclick="addInterestRate()">
+                        <i class="fas fa-plus"></i> Tambah Periode Bunga
+                    </button>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-calculator"></i> Hitung Cicilan
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="results" class="results-container">
+            <div class="result-header">
+                <div class="result-header-left">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Hasil Perhitungan Cicilan KPR</h3>
+                </div>
+                <button class="btn btn-export" onclick="exportToCSV()">
+                    <i class="fas fa-download"></i> Download CSV
+                </button>
+            </div>
+
+            <div class="installment-periods" id="installment-periods">
+                <!-- Installment periods will be generated dynamically -->
+            </div>
+
+            <div class="result-summary">
+                <div class="result-card">
+                    <h4>Total Bunga</h4>
+                    <div class="value" id="total-interest">Rp 0</div>
+                </div>
+                <div class="result-card">
+                    <h4>Total Pembayaran</h4>
+                    <div class="value" id="total-payment">Rp 0</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h4>Jadwal Pembayaran Bulanan</h4>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="result-table">
+                        <thead>
+                            <tr>
+                                <th>Bulan</th>
+                                <th>Cicilan per Bulan</th>
+                                <th>Pokok</th>
+                                <th>Bunga</th>
+                                <th>Sisa Pinjaman</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payment-schedule">
+                            <!-- Payment schedule will be generated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h4>Grafik Pembayaran Tahunan</h4>
+                <div class="chart-bars" id="chart-bars">
+                    <!-- Chart bars will be generated dynamically -->
+                </div>
+                <div class="chart-labels" id="chart-labels">
+                    <!-- Chart labels will be generated dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#beranda">Beranda</a>
+                    <a href="#tentang">Tentang</a>
+                    <a href="#kontak">Kontak</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <p>&copy; 2023 KPR Calculator. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-message">Perhitungan berhasil!</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Format currency input
+            const loanAmountInput = document.getElementById('loan-amount');
+            loanAmountInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                value = parseInt(value);
+                if (!isNaN(value)) {
+                    e.target.value = formatCurrency(value);
+                }
+            });
+
+            // Form submission
+            document.getElementById('kpr-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                calculateKPR();
+            });
+        });
+
+        function formatCurrency(amount) {
+            return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function parseCurrency(formatted) {
+            return parseInt(formatted.replace(/\D/g, ''));
+        }
+
+        function addInterestRate() {
+            const interestRatesContainer = document.getElementById('interest-rates');
+            const lastRateItem = interestRatesContainer.lastElementChild;
+            const lastEndMonth = parseInt(lastRateItem.querySelector('.period-input:nth-child(3)').value);
+            
+            const newRateItem = document.createElement('div');
+            newRateItem.className = 'interest-rate-item';
+            newRateItem.innerHTML = `
+                <input type="number" class="period-input" placeholder="Bulan ke" min="1" value="${lastEndMonth + 1}">
+                <span>sampai</span>
+                <input type="number" class="period-input" placeholder="Bulan ke" min="1" value="${lastEndMonth + 60}">
+                <span>:</span>
+                <input type="number" class="rate-input" placeholder="Bunga (%)" min="0" max="100" step="0.01" value="8">
+                <span>%</span>
+                <button type="button" class="btn btn-danger" onclick="removeInterestRate(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            
+            interestRatesContainer.appendChild(newRateItem);
+            showNotification('Periode bunga baru ditambahkan', 'success');
+        }
+
+        function removeInterestRate(button) {
+            const interestRatesContainer = document.getElementById('interest-rates');
+            if (interestRatesContainer.children.length > 1) {
+                button.parentElement.remove();
+                showNotification('Periode bunga dihapus', 'success');
+            } else {
+                showNotification('Minimal harus ada satu periode bunga', 'error');
+            }
+        }
+
+        function calculateKPR() {
+            const loanAmount = parseCurrency(document.getElementById('loan-amount').value);
+            const loanPeriodMonths = parseInt(document.getElementById('loan-period').value);
+            
+            // Get interest rates
+            const interestRates = [];
+            const rateItems = document.querySelectorAll('.interest-rate-item');
+            
+            rateItems.forEach(item => {
+                const startMonth = parseInt(item.querySelector('.period-input:nth-child(1)').value);
+                const endMonth = parseInt(item.querySelector('.period-input:nth-child(3)').value);
+                const rate = parseFloat(item.querySelector('.rate-input').value) / 100;
+                
+                interestRates.push({
+                    startMonth: startMonth,
+                    endMonth: endMonth,
+                    rate: rate
+                });
+            });
+            
+            // Calculate monthly installments for each period
+            let remainingLoan = loanAmount;
+            const paymentSchedule = [];
+            const yearlyData = [];
+            const installmentPeriods = [];
+            
+            // Initialize yearly data
+            for (let year = 1; year <= Math.ceil(loanPeriodMonths / 12); year++) {
+                yearlyData.push({
+                    year: year,
+                    principal: 0,
+                    interest: 0
+                });
+            }
+            
+            // Calculate for each month
+            for (let month = 1; month <= loanPeriodMonths; month++) {
+                // Find the applicable interest rate for this month
+                let applicableRate = 0;
+                for (const rate of interestRates) {
+                    if (month >= rate.startMonth && month <= rate.endMonth) {
+                        applicableRate = rate.rate;
+                        break;
+                    }
+                }
+                
+                const monthlyRate = applicableRate / 12;
+                const remainingMonths = loanPeriodMonths - month + 1;
+                
+                // Calculate monthly installment using annuity formula
+                let monthlyInstallment;
+                if (monthlyRate === 0) {
+                    monthlyInstallment = remainingLoan / remainingMonths;
+                } else {
+                    monthlyInstallment = remainingLoan * (monthlyRate * Math.pow(1 + monthlyRate, remainingMonths)) / (Math.pow(1 + monthlyRate, remainingMonths) - 1);
+                }
+                
+                // Calculate interest and principal for this month
+                const interestPayment = remainingLoan * monthlyRate;
+                const principalPayment = monthlyInstallment - interestPayment;
+                
+                // Update remaining loan
+                remainingLoan -= principalPayment;
+                
+                // Ensure remaining loan doesn't go negative due to rounding
+                if (remainingLoan < 0) remainingLoan = 0;
+                
+                // Add to payment schedule
+                paymentSchedule.push({
+                    month: month,
+                    interestRate: (applicableRate * 100).toFixed(2),
+                    monthlyInstallment: monthlyInstallment,
+                    principalPayment: principalPayment,
+                    interestPayment: interestPayment,
+                    remainingLoan: remainingLoan
+                });
+                
+                // Update yearly data
+                const yearIndex = Math.ceil(month / 12) - 1;
+                if (yearlyData[yearIndex]) {
+                    yearlyData[yearIndex].principal += principalPayment;
+                    yearlyData[yearIndex].interest += interestPayment;
+                }
+            }
+            
+            // Calculate installment periods
+            for (const rate of interestRates) {
+                const startMonth = rate.startMonth;
+                const endMonth = Math.min(rate.endMonth, loanPeriodMonths);
+                
+                // Find the installment for this period
+                let installment = 0;
+                for (let month = startMonth; month <= endMonth; month++) {
+                    if (paymentSchedule[month - 1]) {
+                        installment = paymentSchedule[month - 1].monthlyInstallment;
+                        break;
+                    }
+                }
+                
+                installmentPeriods.push({
+                    startMonth: startMonth,
+                    endMonth: endMonth,
+                    rate: (rate.rate * 100).toFixed(2),
+                    installment: installment
+                });
+            }
+            
+            // Calculate totals
+            const totalPayment = paymentSchedule.reduce((sum, item) => sum + item.monthlyInstallment, 0);
+            const totalInterest = paymentSchedule.reduce((sum, item) => sum + item.interestPayment, 0);
+            
+            // Display installment periods
+            const installmentPeriodsContainer = document.getElementById('installment-periods');
+            installmentPeriodsContainer.innerHTML = '';
+            
+            installmentPeriods.forEach(period => {
+                const card = document.createElement('div');
+                card.className = 'installment-card';
+                card.innerHTML = `
+                    <h4>Bulan ${period.startMonth} - ${period.endMonth} (Bunga ${period.rate}%)</h4>
+                    <div class="value">Rp ${formatCurrency(Math.round(period.installment))}</div>
+                `;
+                installmentPeriodsContainer.appendChild(card);
+            });
+            
+            // Display results
+            document.getElementById('total-interest').textContent = 'Rp ' + formatCurrency(Math.round(totalInterest));
+            document.getElementById('total-payment').textContent = 'Rp ' + formatCurrency(Math.round(totalPayment));
+            
+            // Generate payment schedule table
+            const paymentScheduleTable = document.getElementById('payment-schedule');
+            paymentScheduleTable.innerHTML = '';
+            
+            // Add all monthly data to table
+            paymentSchedule.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.month}</td>
+                    <td>Rp ${formatCurrency(Math.round(item.monthlyInstallment))}</td>
+                    <td>Rp ${formatCurrency(Math.round(item.principalPayment))}</td>
+                    <td>Rp ${formatCurrency(Math.round(item.interestPayment))}</td>
+                    <td>Rp ${formatCurrency(Math.round(item.remainingLoan))}</td>
+                `;
+                paymentScheduleTable.appendChild(row);
+            });
+            
+            // Generate chart
+            generateChart(yearlyData);
+            
+            // Show results
+            document.getElementById('results').classList.add('active');
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            
+            // Show notification
+            showNotification('Perhitungan berhasil! Lihat hasil di bawah.', 'success');
+        }
+
+        function generateChart(yearlyData) {
+            const chartBars = document.getElementById('chart-bars');
+            const chartLabels = document.getElementById('chart-labels');
+            
+            // Clear existing chart
+            chartBars.innerHTML = '';
+            chartLabels.innerHTML = '';
+            
+            // Find max value for scaling
+            const maxValue = Math.max(...yearlyData.map(item => item.principal + item.interest));
+            
+            // Generate bars and labels
+            yearlyData.forEach(item => {
+                // Create bar
+                const bar = document.createElement('div');
+                bar.className = 'chart-bar';
+                const height = ((item.principal + item.interest) / maxValue) * 100;
+                bar.style.height = `${height}%`;
+                
+                // Create tooltip
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = `Tahun ${item.year}: Pokok Rp ${formatCurrency(Math.round(item.principal))}, Bunga Rp ${formatCurrency(Math.round(item.interest))}`;
+                bar.appendChild(tooltip);
+                
+                chartBars.appendChild(bar);
+                
+                // Create label
+                const label = document.createElement('div');
+                label.textContent = `Tahun ${item.year}`;
+                chartLabels.appendChild(label);
+            });
+        }
+
+        function exportToCSV() {
+            const paymentSchedule = document.getElementById('payment-schedule');
+            const rows = paymentSchedule.querySelectorAll('tr');
+            
+            let csvContent = "data:text/csv;charset=utf-8,";
+            
+            // Add header
+            csvContent += "Bulan,Cicilan per Bulan,Pokok,Bunga,Sisa Pinjaman\n";
+            
+            // Add rows
+            rows.forEach(row => {
+                const cols = row.querySelectorAll('td');
+                const rowData = Array.from(cols).map(col => {
+                    // Remove "Rp " and replace "." with "" for proper CSV format
+                    return col.textContent.replace('Rp ', '').replace(/\./g, '');
+                });
+                csvContent += rowData.join(',') + '\n';
+            });
+            
+            // Create download link
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'jadwal_pembayaran_kpr.csv');
+            document.body.appendChild(link);
+            
+            // Trigger download
+            link.click();
+            
+            // Clean up
+            document.body.removeChild(link);
+            
+            showNotification('File CSV berhasil diunduh', 'success');
+        }
+
+        function resetForm() {
+            document.getElementById('kpr-form').reset();
+            document.getElementById('results').classList.remove('active');
+            showNotification('Form telah direset', 'success');
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notification-message');
+            const icon = notification.querySelector('i');
+            
+            // Set message
+            notificationMessage.textContent = message;
+            
+            // Set icon and class based on type
+            notification.className = 'notification ' + type;
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+            }
+            
+            // Show notification
+            notification.classList.add('show');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
